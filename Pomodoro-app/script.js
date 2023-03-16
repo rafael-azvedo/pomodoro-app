@@ -26,16 +26,14 @@ function renderClock(m , s){
 function renderTitle(){
     if(pomodoroMoment){
         document.getElementById("title").innerHTML = "Pomodoro";
-        console.log("pomodoro")        
     }else{
         document.getElementById("title").innerHTML = "Pausa";
-        console.log("pausa")     
     }
 }
 function renderCounter(n){
     document.getElementById("counter").innerHTML = "Numero de pomodoros da sessao: " + n;
 }
-function edit(){
+function openEdit(){
     display(editDiv, "block");
     display(editBtn, "none");
     display(saveBtn, "none");
@@ -43,16 +41,12 @@ function edit(){
 function save(){
     let editMin = document.getElementById("min").value;
     let editSec = document.getElementById("sec").value;
-    if(editMin == 0 && editSec == 0){
-        display(editDiv, "none");
-        display(editBtn, "inline");
-        display(saveBtn, "inline");
-    }else{
+    if(editMin , editSec  != 0 ){
         initialMin = editMin;
         sec = editSec;
-    }
-    renderClock(initialMin, sec);
-    edited = true;
+        renderClock(initialMin, sec);
+        edited = true;
+    }    
     display(editDiv, "none");
     display(editBtn, "inline");
     display(saveBtn, "inline");
