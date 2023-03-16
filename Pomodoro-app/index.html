@@ -8,10 +8,21 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <div>
-        <h1 id="title"></h1>
-        <h2 id="clock"></h2>
-        <button onclick="start()">Start</button>
+    <div class="pomodoroContainer">
+        <h2 id="title">pomodoro</h2>
+        <h1 id="clock">25m 0s</h1>       
+        <button id="startBtn" onclick="start()" style="display: inline;">Start</button>
+        <button id="editBtn" onclick="edit()" style="display: inline;">Edit</button>
+        <button id="resetBtn" onclick="reset()" style="display: none;">Reset</button>
+        <div id="edit" style="display: none;">
+            <input type="number" id="min" name="min" min="00" max="59" value="0">
+            <label for="min">Minutes</label>
+    
+            <input type="number" id="sec" name="sec" min="01" max="59" value="0">
+            <label for="sec">Seconds</label>
+
+            <button onclick="save()">Save</button>
+        </div>
         <audio id="bell" src="audio/bell.mp3" style="display:none"></audio>
     </div>
 

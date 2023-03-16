@@ -1,0 +1,15 @@
+div.pomodoroContainer{
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    color: black;
+    text-align: center;
+}
+div.pomodoroContainer h2{
+    text-transform: uppercase;
+}
+div#edit{
+    margin-top: 20px;
+}
