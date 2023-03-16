@@ -25,11 +25,11 @@
             
             <button onclick="save()">Save</button>
         </div>
-        <h3 id="counter">Numero de pomodoros da sessao: 1</h3>  
-        <div id="additionalRest" style="display: none;">
+        <h3 id="counter">Voce esta no 1° ciclo</h3>  
+        <div id="additionalRest" style="display: block;">
             <p>Este e o seu 4º pomodoro, deseja que a proxima pausa seja prolongada?</p>
             <button id="restBtnYes" onclick="addAdditionalRest()" style="display: inline;">Sim</button>
-            <button id="restBtnNo" onclick="closeAdditionalRest()" style="display: inline;">Nao</button>
+            <button id="restBtnNo" onclick='display(additionalRestDiv, "none")' style="display: inline;">Nao</button>
         </div>
         
         

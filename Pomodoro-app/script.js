@@ -1,5 +1,7 @@
 var initialMin = 25;
 var initialSec = 00;
+var min = initialMin;
+var sec = initialSec;
 var bell = document.getElementById("bell");
 var editDiv = document.getElementById("edit");
 var additionalRestDiv = document.getElementById("additionalRest");
@@ -8,11 +10,7 @@ var saveBtn = document.getElementById("startBtn");
 var resetBtn = document.getElementById("resetBtn");
 var pauseBtn = document.getElementById("pauseBtn");
 var resumeBtn = document.getElementById("resumeBtn");
-var restBtnYes = document.getElementById("restBtnYes");
-var restBtnNo = document.getElementById("restBtnNo");
 var edited = false;
-var min = initialMin;
-var sec = initialSec;
 var clockTick = 200;
 var pomodoroMoment = true;
 var pomodoroCounter = 1;
@@ -33,8 +31,8 @@ function renderTitle(){
         document.getElementById("title").innerHTML = "Pausa";
     }
 }
-function renderCounter(n){
-    document.getElementById("counter").innerHTML = "Numero de pomodoros da sessao: " + n;
+function renderCounter(){
+    document.getElementById("counter").innerHTML = "Voce esta no " + pomodoroCounter + "° ciclo";
 }
 function openEdit(){
     display(editDiv, "block");
@@ -55,13 +53,8 @@ function save(){
     display(saveBtn, "inline");
 }
 function reset(){
-    if(pomodoroMoment){
-        clearInterval(pomodoroInterval);
-        
-    }else{
-        clearInterval(restInterval);
-        
-    }
+    clearInterval(pomodoroInterval);
+
     initialMin = 25;
     initialSec = 00;
     document.getElementById("min").value = 0;
@@ -78,13 +71,13 @@ function reset(){
 }
 function pause(){
     clearInterval(pomodoroInterval);
-    pauseBtn.style.display = "none";
-    resumeBtn.style.display = "inline";
+    display(pauseBtn, "none");
+    display(resumeBtn, "inline");
 }
 function resume(){
     pomodoroInterval = setInterval(pomodoroTimer, clockTick);
-    pauseBtn.style.display = "inline";
-    resumeBtn.style.display = "none";
+    display(pauseBtn, "inline");
+    display(resumeBtn, "none");
 }
 function start(){
     min = initialMin;
@@ -106,11 +99,8 @@ function pomodoro(){
         clockNotification("Hora da Pausa");
         pomodoroCounter++;
         console.log("entrou no pomodoro")
-        if(additionalRest){
-            min = 2;
-        }else{
-            min = 1;
-        }
+
+        min = additionalRest ? 2 : 1;
 }
 function rest(){
         pomodoroMoment = true;
@@ -129,11 +119,7 @@ function rest(){
 function pomodoroTimer(){
     if(sec <= 0 && min <= 0){
         bell.play();
-        if(pomodoroMoment){
-            pomodoro();
-        }else{
-            rest();
-        }
+        pomodoroMoment ? pomodoro() : rest();
         renderTitle();
         renderClock(min, sec);   
     }else if(sec <= 0){
@@ -157,16 +143,13 @@ function clockNotification(m){
             }
     }
 }
-function closeAdditionalRest(){
-    additionalRestDiv.style.display = "none";
-    pomodoroCounter = 1;
-}
 function openAdditionalRest(){
     additionalRestDiv.style.display = "block";
 }
 function addAdditionalRest(){
     additionalRest = true;
-    closeAdditionalRest();
+    display(additionalRestDiv, "none");
+    pomodoroCounter = 1;
 }
 function display(element, attb){
     element.style.display = attb;
