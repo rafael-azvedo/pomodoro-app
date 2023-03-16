@@ -46,8 +46,10 @@ function save(){
 function reset(){
     if(moment == "pomodoro"){
         clearInterval(pomodoroInterval);
+        
     }else{
         clearInterval(restInterval);
+        
     }
     initialMin = 25;
     sec = 00;
@@ -59,6 +61,7 @@ function reset(){
     resetBtn.style.display = "none";
     pauseBtn.style.display = "none";
     resumeBtn.style.display = "none";
+    renderTitle("Pomodoro");
 }
 function pause(){
     if(moment == "pomodoro"){
@@ -73,7 +76,7 @@ function resume(){
     if(moment == "pomodoro"){
         pomodoroInterval = setInterval(pomodoroClock, clockTick);
     }else{
-        restInterval = setInterval(restClock, clockTick)
+        restInterval = setInterval(restClock, clockTick);
     }
     pauseBtn.style.display = "inline";
     resumeBtn.style.display = "none";
