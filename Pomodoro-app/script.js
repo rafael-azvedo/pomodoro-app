@@ -5,9 +5,12 @@ var editDiv = document.getElementById("edit");
 var editBtn = document.getElementById("editBtn");
 var saveBtn = document.getElementById("startBtn");
 var resetBtn = document.getElementById("resetBtn");
+var pauseBtn = document.getElementById("pauseBtn");
+var resumeBtn = document.getElementById("resumeBtn");
 var edited = false;
 var min = initialMin;
 var clockTick = 200;
+var moment = " ";
 
 window.onload = function() {
     Notification.requestPermission();    
@@ -41,10 +44,10 @@ function save(){
     saveBtn.style.display = "inline";
 }
 function reset(){
-    if(pomodoroInterval){
+    if(moment == "pomodoro"){
         clearInterval(pomodoroInterval);
     }else{
-        clearInterval(restInterval)
+        clearInterval(restInterval);
     }
     initialMin = 25;
     sec = 00;
@@ -54,6 +57,26 @@ function reset(){
     editBtn.style.display = "inline";
     saveBtn.style.display = "inline";
     resetBtn.style.display = "none";
+    pauseBtn.style.display = "none";
+    resumeBtn.style.display = "none";
+}
+function pause(){
+    if(moment == "pomodoro"){
+        clearInterval(pomodoroInterval);
+    }else{
+        clearInterval(restInterval);
+    }
+    pauseBtn.style.display = "none";
+    resumeBtn.style.display = "inline";
+}
+function resume(){
+    if(moment == "pomodoro"){
+        pomodoroInterval = setInterval(pomodoroClock, clockTick);
+    }else{
+        restInterval = setInterval(restClock, clockTick)
+    }
+    pauseBtn.style.display = "inline";
+    resumeBtn.style.display = "none";
 }
 function start(){
     if(!edited){
@@ -66,6 +89,8 @@ function start(){
         editBtn.style.display = "none";
         saveBtn.style.display = "none";
         resetBtn.style.display = "inline";
+        pauseBtn.style.display = "inline";
+        moment = "pomodoro"
     }else if(sec <= 0){
         initialMin--
         min = initialMin;
@@ -75,6 +100,8 @@ function start(){
         editBtn.style.display = "none";
         saveBtn.style.display = "none";
         resetBtn.style.display = "inline";
+        pauseBtn.style.display = "inline";
+        moment = "pomodoro"
     }else{
         min = initialMin;
         renderTitle("Pomodoro");
@@ -82,6 +109,8 @@ function start(){
         editBtn.style.display = "none";
         saveBtn.style.display = "none";
         resetBtn.style.display = "inline";
+        pauseBtn.style.display = "inline";
+        moment = "pomodoro"
     }
 }
 function pomodoroClock(){
@@ -89,6 +118,7 @@ function pomodoroClock(){
         bell.play();
         clockNotification("Hora da Pausa");
         renderTitle("Pausa");
+        moment = "rest"
         clearInterval(pomodoroInterval);
         min = 5;
         restInterval = setInterval(restClock, clockTick);
@@ -107,6 +137,7 @@ function restClock(){
         clockNotification("Hora do Pomodoro");
         renderTitle("Pomodoro");
         clearInterval(restInterval);
+        moment = "pomodoro"
         min = initialMin;
         pomodoroInterval = setInterval(pomodoroClock, clockTick)
     }else if(sec <= 0){
