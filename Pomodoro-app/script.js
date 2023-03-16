@@ -21,7 +21,9 @@ window.onload = function() {
     Notification.requestPermission();    
 };
 function renderClock(m , s){
-    document.getElementById("clock").innerHTML = m + "m " + s + "s";
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+    document.getElementById("clock").innerHTML = m + ":" + s;
 }
 function renderTitle(){
     if(pomodoroMoment){
@@ -81,6 +83,7 @@ function pause(){
     }
     pauseBtn.style.display = "none";
     resumeBtn.style.display = "inline";
+
 }
 function resume(){
     if(pomodoroMoment){
