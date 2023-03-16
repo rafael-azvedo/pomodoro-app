@@ -11,6 +11,7 @@ var edited = false;
 var min = initialMin;
 var clockTick = 200;
 var moment = " ";
+var pomodoroCounter = 0;
 
 window.onload = function() {
     Notification.requestPermission();    
@@ -20,6 +21,9 @@ function renderClock(m , s){
 }
 function renderTitle(title){
     document.getElementById("title").innerHTML = title;
+}
+function renderCounter(n){
+    document.getElementById("counter").innerHTML = "Numero de pomodoros da sessao: " + n;
 }
 function edit(){
     editDiv.style.display = "block";
@@ -123,8 +127,10 @@ function pomodoroClock(){
         renderTitle("Pausa");
         moment = "rest"
         clearInterval(pomodoroInterval);
-        min = 5;
+        min = 1;
         restInterval = setInterval(restClock, clockTick);
+        pomodoroCounter++;
+        renderCounter(pomodoroCounter);
     }else if(sec <= 0){
         min--;
         sec = 59;
@@ -142,7 +148,8 @@ function restClock(){
         clearInterval(restInterval);
         moment = "pomodoro"
         min = initialMin;
-        pomodoroInterval = setInterval(pomodoroClock, clockTick)
+        pomodoroInterval = setInterval(pomodoroClock, clockTick);
+        
     }else if(sec <= 0){
         min--;
         sec = 59;
