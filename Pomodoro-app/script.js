@@ -15,9 +15,12 @@ var clockTick = 10;
 var pomodoroMoment = true;
 var pomodoroCounter = 1;
 var additionalRest = false;
+var dailyPomodoroDate = localStorage.getItem("dailyPomodoroDate");
 
 window.onload = function() {
-    Notification.requestPermission();    
+    Notification.requestPermission();
+    dailyPomodoro();
+    renderDailyCounter();   
 };
 function renderClock(m , s){
     m = m < 10 ? "0" + m : m;
@@ -100,11 +103,16 @@ function pomodoro(){
     pomodoroMoment = false
     clockNotification("Hora da Pausa");
 
+    let aux = parseInt(localStorage.getItem("numbersPomodoroDay")) + 1;
+    localStorage.setItem("numbersPomodoroDay" , aux);
+    renderDailyCounter();
+
     min = additionalRest ? 10 : 5;
 
     if(pomodoroCounter%4 == 0 && additionalRest){
         display(additionalRestDiv, "none");
     }
+    
     
 }
 function rest(){
@@ -157,4 +165,17 @@ function addAdditionalRest(){
 }
 function display(element, attb){
     element.style.display = attb;
+}
+function dailyPomodoro(){
+    var currentDate = new Date().toJSON().slice(0, 10);
+    if (currentDate != dailyPomodoroDate){
+        localStorage.clear();
+        dailyPomodoroDate = new Date().toJSON().slice(0, 10);
+        localStorage.setItem("dailyPomodoroDate", dailyPomodoroDate);
+        localStorage.setItem("numbersPomodoroDay", 0);
+    }
+}
+function renderDailyCounter(){
+    let aux = localStorage.getItem("numbersPomodoroDay") ? localStorage.getItem("numbersPomodoroDay") : 0;
+    document.getElementById("dailyCounter").innerHTML = "Numero de pomodoros do dia: " + localStorage.getItem("numbersPomodoroDay");
 }
