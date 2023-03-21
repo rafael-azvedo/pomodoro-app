@@ -11,7 +11,7 @@ var resetBtn = document.getElementById("resetBtn");
 var pauseBtn = document.getElementById("pauseBtn");
 var resumeBtn = document.getElementById("resumeBtn");
 var edited = false;
-var clockTick = 10;
+var clockTick = 1000;
 var pomodoroMoment = true;
 var pomodoroCounter = 1;
 var additionalRest = false;
@@ -35,7 +35,7 @@ function renderTitle(){
     }
 }
 function renderCounter(){
-    document.getElementById("counter").innerHTML = "Voce esta no " + pomodoroCounter + "° ciclo da sessao";
+    document.getElementById("counter").innerHTML = "Você está no " + pomodoroCounter + "° ciclo da sessão";
 }
 function openEdit(){
     display(editDiv, "block");
@@ -177,5 +177,5 @@ function dailyPomodoro(){
 }
 function renderDailyCounter(){
     let aux = localStorage.getItem("numbersPomodoroDay") ? localStorage.getItem("numbersPomodoroDay") : 0;
-    document.getElementById("dailyCounter").innerHTML = "Numero de pomodoros do dia: " + localStorage.getItem("numbersPomodoroDay");
+    document.getElementById("dailyCounter").innerHTML = "Número de pomodoros do dia: " + localStorage.getItem("numbersPomodoroDay");
 }
